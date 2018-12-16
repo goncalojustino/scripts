@@ -1,3 +1,12 @@
+
+Sub Form_OnLoad  
+   'the path where the resulting xy files should be exported to   
+exportPath = Analysis.Path  
+   
+   
+'the list of masses for the extracted mass traces   
+massesToExport= Array(586.218,602.213,618.210,616.192,632.187,474.165,147.047,440.178,425.150,567.200,731.250,601.210,439.170,457.180)   
+   
 Dim currentAnalysis   
    
 For Each currentAnalysis in Application.Analyses   
@@ -51,6 +60,13 @@ For Each currentAnalysis in Application.Analyses
     'For Each currentChromatogram in currentAnalysis.Chromatograms   
     '    currentChromatogram.Export exportPath+currentAnalysis.name+"_"+currentChromatogram.name+".xy", daXY   
     'Next   
+    
+    'Extract MS2 for all compounds in all chromatograms
+    For each ONE in Analysis.Chromatograms
+      ONE.FindCompounds
+    Next
+    
+
 Next  
  
 Analysis.Chromatograms(3).Name_ = "MTK+H,pos  586.218 witdh=0.01 +All MS" 
@@ -68,10 +84,13 @@ Analysis.Chromatograms(14).Name_ = "MTK IMP 601.210 witdh=0.01 +All MS"
 Analysis.Chromatograms(15).Name_ = "MTK IMP 439.170 witdh=0.01 +All MS" 
 Analysis.Chromatograms(16).Name_ = "MTK IMP 457.180 witdh=0.01 +All MS" 
  
+Analysis.Save
+ 
 End Sub  
  
  
   
+ 
  
  
  
